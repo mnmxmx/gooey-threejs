@@ -1,5 +1,6 @@
-import * as THREE from "libs/three.module.js"
+import * as THREE from "three"
 import EventBus from "../utils/EventBus";
+import {RGBELoader} from "three/examples/jsm/loaders/RGBELoader.js"
 
 class Assets{
     constructor(){
@@ -9,12 +10,16 @@ class Assets{
         this.shapes = {
         }
 
+        this.envs = {
+        }
+
         this.illusts = [];
 
         this.total = 0;
         this.count = 0;
         this.countTotal(this.textures);
         this.countTotal(this.shapes);
+        this.countTotal(this.envs);
 
     }
 
@@ -40,6 +45,18 @@ class Assets{
     }
 
     loadShapes(){
+    }
+
+    loadEnv(){
+        for(let key in this.envs){
+            const data = this.envs[key]
+            const loader = new RGBELoader();
+            loader.load(data.src, (texture) => {
+                texture.encoding = THREE.sRGBEncoding;
+                data.value = texture;
+                this.compLoad();
+            });
+        }
     }
 
     loadTextures(){
