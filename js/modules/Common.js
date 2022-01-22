@@ -40,7 +40,7 @@ class Common {
     }
 
     resize() {
-        const width = document.body.clientWidth;
+        const width = window.innerWidth;
         const height = window.innerHeight;
 
         this.dimensions_old.copy(this.dimensions);
