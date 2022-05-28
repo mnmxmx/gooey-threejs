@@ -5215,10 +5215,10 @@ terser@^5.5.1:
     source-map "~0.7.2"
     source-map-support "~0.5.19"
 
-three@^0.136.0:
-  version "0.136.0"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.136.0.tgz#b1504db021b46398ef468aa7849f3dcabb814f50"
-  integrity sha512-+fEMX7nYLz2ZesVP/dyifli5Jf8gR3XPAnFJveQ80aMhibFduzrADnjMbARXh8+W9qLK7rshJCjAIL/6cDxC+A==
+three@^0.141.0:
+  version "0.141.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.141.0.tgz#16677a12b9dd0c3e1568ebad0fd09de15d5a8216"
+  integrity sha512-JaSDAPWuk4RTzG5BYRQm8YZbERUxTfTDVouWgHMisS2to4E5fotMS9F2zPFNOIJyEFTTQDDKPpsgZVThKU3pXA==
 
 through2@^0.6.3:
   version "0.6.5"
