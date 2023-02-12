@@ -13,7 +13,7 @@ void main(){
 
   vec3 velocity = vec3(aVelocity.xy, 0.0);
   float life = fract(aVelocity.z + time);
-  float scale = mix(1.0, 0.5, life) * mix(0.25, 1.0, aRandom.y);
+  float scale = mix(1.0, 0.5, life) * mix(0.25, 1.0, aRandom.y * aRandom.y);
   vec3 pos = position * scale + velocity * life * uAreaSize;
   vUv = uv;
  

@@ -19,7 +19,7 @@ export default class Artwork{
         this.props = props;
         this.centerCircle = null;
         this.smallCircles = null;
-        this.smallCircleNum = 50;
+        this.smallCircleNum = 30;
         this.circlePosArray = []; 
         this.group = new THREE.Group();
         
@@ -51,6 +51,9 @@ export default class Artwork{
                 uniforms: {
                     uDiffuse: {
                         value: this.gaussianBlur.blurFbos[1].texture
+                    },
+                    uGooey: {
+                        value: controls.params.enableGooey
                     }
                 },
                 transparent: true
@@ -60,12 +63,12 @@ export default class Artwork{
         this.createCenterCircle();
         this.createSmallCircles();
 
-        this.loop();
+        this.update();
     }
 
     createCenterCircle(){
         this.centerCircle = new THREE.Mesh(
-            new THREE.CircleGeometry(1.0, 64),
+            new THREE.CircleGeometry(0.8, 64),
             new THREE.ShaderMaterial({
                 vertexShader: centerVert,
                 fragmentShader: centerFrag,
@@ -139,7 +142,7 @@ export default class Artwork{
                     value: controls.params.color3
                 },
                 uAreaSize: {
-                    value: 20
+                    value: 10
                 }
             }
         });
@@ -155,19 +158,18 @@ export default class Artwork{
     }
 
     update(){
-        this.uniforms.uTime.value += common.delta
         common.update();
+        this.outputMesh.material.uniforms.uGooey.value = controls.params.enableGooey
+        this.uniforms.uTime.value += common.delta;
+        common.renderer.setClearColor(0xffffff, 0.0)
         common.renderer.setRenderTarget(this.fbo);
         common.renderer.render(common.scene, common.camera);
 
         this.gaussianBlur.update();
 
+        common.renderer.setClearColor(controls.params.bgColor)
         common.renderer.setRenderTarget(null);
         common.renderer.render(this.outputMesh, common.camera);
-    }
-
-    loop(){
-        this.update();
-        window.requestAnimationFrame(this.loop.bind(this));
+        window.requestAnimationFrame(this.update.bind(this));
     }
 }
